@@ -82,11 +82,11 @@ function res = filtro_bilat(im, S, R)
       centro = im(k,j,:);   %Pixel central
       D = vec - centro;     %Diferencias entre el pixel central y los de la vecindad
       D = D / R;            %Division por el ancho
-      D2 = sum(D.^2, 3);    %Sumamos los valores de D^2 en su tercera dimension
+      D = sum(D.^2, 3);    %Sumamos los valores de D^2 en su tercera dimension
       
-      Gr= exp(-0.5 *D2);    %Obtener los coeficientes de la 2a gaussiana
+      Gr= exp(-0.5 *D);    %Obtener los coeficientes de la 2a gaussiana
       G = Gr .* Gs;         %Multiplicamos punto a punto la nueva mascara con la anterior
-      G = G / sum(G(:));
+      G = G / sum(G(:));    
 
       for i = 1 : P
         patch = vec(:,:,i);     %Extraemos la vecindad del canal i
@@ -176,11 +176,11 @@ function res=filtro_cross(im, im2, S, R)
       vec2 = im2(k+s,j+s,:); %Extraemos la vecindad de la imagen 2
       centro = im2(k,j,:);   %Pixel central
 
-      D = vec - centro;     %Diferencias entre el pixel central y los de la vecindad
+      D = vec2 - centro;     %Diferencias entre el pixel central y los de la vecindad
       D = D / R;            %Division por el ancho
-      D2 = sum(D.^2, 3);    %Sumamos los valores de D^2 en su tercera dimension
+      D = sum(D.^2, 3);    %Sumamos los valores de D^2 en su tercera dimension
       
-      Gr= exp(-0.5 *D2);    %Obtener los coeficientes de la 2a gaussiana
+      Gr= exp(-0.5 *D);    %Obtener los coeficientes de la 2a gaussiana
       G = Gr .* Gs;         %Multiplicamos punto a punto la nueva mascara con la anterior
       G = G / sum(G(:));
 
